@@ -1,0 +1,21 @@
+_Recommended Restaurants_
+============
+
+## Project Overview :
+A single page web application featuring a map of the area user provided. The app provides a list of recommended restaurants within a variety of categories near the area. Users can filter restaurants by their categories and get the information about each restaurant from infowindows of its markers on the map.
+
+## Approach :
+- Use the JavaScript library **Knockout** to develop a web application with responsive display.
+- Use third-pary APIs.
+    - **Google Maps** : Add full screen map
+    - **Foursquare** : Get restaurants data
+- Use Ajax request to load data APIs asynchronously.
+
+## Usage :
+1. Open **`index.html`** with a web browser.
+2. Enter any address/place in the input box and click **Go** button.
+3. Click **Find Restaurants** button for the recommended restaurants list nearby.
+    - Click any restaurant or markers on the map for more information about the restaurant
+    - Choose a category and click **Filter** button for filtered list of restaurants
+    - Click **Show All** button to remove filter
+    - Click **Clear Searches** button to clear restaurants

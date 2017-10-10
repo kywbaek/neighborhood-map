@@ -1,0 +1,106 @@
+html, body {
+    font-family: Arial, sans-serif;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    color: #525454;
+}
+
+hr {
+    background: #D0D7D9;
+    height: 1px;
+    margin: 15px 0 15px 0;
+    border: none;
+}
+
+li:hover {
+    background-color: #b8dffb;
+}
+
+.selected {
+    background-color: #b8dffb;
+}
+
+#find-restaurants, #clear-searches {
+    width: 46%;
+}
+
+#filter, #filter-all {
+    width: 23%;
+}
+
+#map {
+    bottom:0px;
+    height: 100%;
+    /*left: 362px;*/
+    position: absolute;
+    right: 0px;
+    width: 100%;
+    z-index: 0;
+}
+
+.options-box {
+    background: #fff;
+    border: 1px solid #999;
+    border-radius: 3px;
+    max-height: 100vh;
+    line-height: 35px;
+    padding: 10px;
+    text-align: center;
+    max-width: 340px;
+    /*margin-left: 10px;*/
+    position: relative;
+    z-index: 1;
+}
+
+#drop-down {
+    display: none;
+}
+
+#restList {
+    overflow: scroll;
+    max-height: 51vh;
+}
+
+#pano {
+    width: 200px;
+    height: 200px;
+}
+
+#go-to-area-text {
+    position: relative;
+    width: 68%;
+}
+
+#go-to-area {
+    width: 24%;
+}
+
+.toggle-button {
+    border-radius: 0px 5px 5px 0px;
+    color: #fff;
+    background-color: #555;
+    padding: 10px;
+    z-index: 1;
+    max-width: 40px;
+}
+
+.toggle-button:hover {
+    cursor: pointer;
+}
+
+.tooltiptext {
+    white-space: nowrap;
+    background-color: black;
+    border-radius: 5px;
+    left: 105%;
+    position: absolute;
+    visibility: hidden;
+    z-index: 2;
+}
+
+.toggle-button:hover .tooltiptext {
+    visibility: visible;
+}
+
+

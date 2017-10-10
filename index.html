@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Recommended Restaurants from FOURSQUARE</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 col-md-4 options-box">
+                <h3>Recommended Restaurants</h3>
+                <h4 data-bind="text: currentArea"></h4>
+                <div>
+                  <input id="go-to-area-text" type="text" placeholder="Enter your area">
+                  <input data-bind="click: setCurrentArea" id="go-to-area" type="button" value="Go">
+                </div>
+                <hr>
+
+                <div>
+                  <input data-bind="click: getRestList" id="find-restaurants" type="button" value="Find Restaurants">
+                  <input data-bind="click: deleteRestList" id="clear-searches" type="button" value="Clear Searches">
+                </div>
+
+                <div id="drop-down">
+                <hr>
+                <select data-bind="options: catList"></select>
+                <input data-bind="click: setCurrentFilter" id="filter" type="button" value="Filter">
+                <input data-bind="click: clearFilter" id="filter-all" type="button" value="Show All">
+                </div>
+
+                <hr>
+
+                <ul class="list-unstyled" id="restList" data-bind="foreach: restList">
+                    <li data-bind="text:name, click: function(){ $parent.openInfowindow($index); }">
+                        <span data-bind="text: name"></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-xs-1 text-center toggle-button">&#x2630
+                <span class="tooltiptext text-center">Show / Hide</span>
+            </div>
+
+            <div class="col">
+                <div id="map">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxz1F05ba1OK7sEIk4olJZ9CPhnXg58tw&libraries=places,geometry&v=3&callback=initMap">
+    </script>
+    <script src="js/libs/jquery-3.2.1.min.js"></script>
+    <script src="js/libs/bootstrap.min.js"></script>
+    <script src="js/libs/knockout-3.4.2.js"></script>
+    <script src="js/FS_secret.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
