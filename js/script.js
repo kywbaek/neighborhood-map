@@ -258,7 +258,7 @@ var ViewModel = function() {
         var address = $("#go-to-area-text").val();
         if (address != '') {
           self.currentArea(address);
-          this.goToArea();
+          self.goToArea();
         }
     }
 
