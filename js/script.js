@@ -309,7 +309,7 @@ var ViewModel = function() {
       $('.options-box').toggle();
     }
 
-    this.getRestList();
+    self.getRestList();
 
 }
 
