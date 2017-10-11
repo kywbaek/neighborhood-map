@@ -22,9 +22,6 @@ function initMap() {
 
     // Initialize the infoWindow.
     largeInfowindow = new google.maps.InfoWindow();
-
-    // Add click event.
-    $('.toggle-button').click(function() { $('.options-box').toggle(); });
 }
 
 // Handle error for google maps api.
@@ -293,6 +290,11 @@ var ViewModel = function() {
       self.currentFilter("Show All");
       $('li').show();
       showMarkers(markers);
+    }
+
+    // Binding function: Toggle options box.
+    this.toggleOptions = function() {
+      $('.options-box').toggle();
     }
 
     this.getRestList();
