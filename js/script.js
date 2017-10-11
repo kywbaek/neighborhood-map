@@ -242,8 +242,9 @@ var ViewModel = function() {
               $(this).addClass('selected');
           });
           })
-        .fail( function() {
-            console.log("Foursquare Data Could Not Be Loaded");
+        .fail( function( jqxhr, statusText, error) {
+          var errText = statusText + ", " + error;
+          alert("Foursquare Data Could Not Be Loaded: " + errText);
         });
      }
 
