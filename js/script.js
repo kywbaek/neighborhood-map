@@ -289,6 +289,8 @@ var ViewModel = function() {
       showMarkers(markers);
     }
 
+    this.getRestList();
+
 }
 
 ko.applyBindings(new ViewModel())
