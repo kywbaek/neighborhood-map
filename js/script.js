@@ -24,7 +24,6 @@ function initMap() {
     largeInfowindow = new google.maps.InfoWindow();
 
     // Add click event.
-    $('#go-to-area').click(function() { goToArea(); });
     $('.toggle-button').click(function() { $('.options-box').toggle(); });
 }
 
@@ -254,6 +253,7 @@ var ViewModel = function() {
         var address = $("#go-to-area-text").val();
         if (address != '') {
           self.currentArea(address);
+          goToArea();
         }
     }
 
