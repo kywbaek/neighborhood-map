@@ -69,7 +69,8 @@ function populateInfoWindow(marker, infowindow, restaurant) {
                         '</div><div>' + phone +
                         '</div><div>' + address +
                         '</div><a href="' + restUrl +
-                        '">website</a><div id="pano"></div>');
+                        '">website</a><div id="pano"></div>' +
+                        '<img src="img/Powered-by-Foursquare.png" alt="Powered by Foursquare">');
         var panoramaOptions = {
           position: nearStreetViewLocation,
           pov: {
