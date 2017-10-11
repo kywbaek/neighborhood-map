@@ -93,40 +93,6 @@ function populateInfoWindow(marker, infowindow, restaurant) {
   }
 }
 
-// Get the address/area that the user entered and recenter the map.
-function goToArea() {
-    // Initialize the geocoder.
-    // Get the address or place that the user entered.
-    // Make sure the address isn't blank.
-    var geocoder = new google.maps.Geocoder();
-    var address = $("#go-to-area-text").val();
-    if (address == '') {
-          window.alert('You must enter an area, or address.');
-        } else {
-          // Geocode the address/area entered to get the center.
-          // Offset longitude of the center for "options box".
-          // Then, center the map on it and zoom in
-          geocoder.geocode(
-            { address: address },
-            function(results, status) {
-              if (status == google.maps.GeocoderStatus.OK) {
-                var offsetCenter = {lat: results[0].geometry.location.lat(),
-                                    lng: results[0].geometry.location.lng()-0.003};
-                map.setCenter(offsetCenter);
-                map.setZoom(15);
-
-                // Save the currentCenter for foursquare api usage.
-                currentCenter = '';
-                currentCenter += results[0].geometry.location.lat() + ','
-                                + results[0].geometry.location.lng();
-              } else {
-                window.alert('We could not find that location - try entering a more' +
-                    ' specific place.');
-              }
-            });
-        }
-}
-
 // Helper functions.
 
 function setMapOnAll(markers, map) {
@@ -249,13 +215,47 @@ var ViewModel = function() {
         });
      }
 
+    // Get the address/area that the user entered and recenter the map.
+    this.goToArea = function() {
+        // Initialize the geocoder.
+        // Get the address or place that the user entered.
+        // Make sure the address isn't blank.
+        var geocoder = new google.maps.Geocoder();
+        var address = $("#go-to-area-text").val();
+        if (address == '') {
+              window.alert('You must enter an area, or address.');
+            } else {
+              // Geocode the address/area entered to get the center.
+              // Offset longitude of the center for "options box".
+              // Then, center the map on it and zoom in
+              geocoder.geocode(
+                { address: address },
+                function(results, status) {
+                  if (status == google.maps.GeocoderStatus.OK) {
+                    var offsetCenter = {lat: results[0].geometry.location.lat(),
+                                        lng: results[0].geometry.location.lng()-0.003};
+                    map.setCenter(offsetCenter);
+                    map.setZoom(15);
+
+                    // Save the currentCenter for foursquare api usage.
+                    currentCenter = '';
+                    currentCenter += results[0].geometry.location.lat() + ','
+                                    + results[0].geometry.location.lng();
+                  } else {
+                    window.alert('We could not find that location - try entering a more' +
+                        ' specific place.');
+                  }
+                });
+            }
+    }
+
     // Binding function: Set the current area.
     this.setCurrentArea = function() {
         self.deleteRestList();
         var address = $("#go-to-area-text").val();
         if (address != '') {
           self.currentArea(address);
-          goToArea();
+          this.goToArea();
         }
     }
 
