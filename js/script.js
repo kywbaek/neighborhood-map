@@ -222,6 +222,11 @@ var ViewModel = function() {
             markers.push(marker);
             marker.addListener('click', function() {
               populateInfoWindow(this, largeInfowindow, i.venue);
+              if (this.getAnimation() != google.maps.Animation.BOUNCE) {
+                this.setAnimation(google.maps.Animation.BOUNCE);
+                } else {
+                this.setAnimation(null);
+                }
             });
 
             // Append to the category list.
@@ -262,10 +267,15 @@ var ViewModel = function() {
       self.catList.splice(1);
     }
 
-    // Binding function: Open infowindow for each restaurant.
+    // Binding function: Open infowindow for each restaurant and Set marker animation.
     this.openInfowindow = function(i) {
-      if ( i() < markers.length ) {
+      var len = markers.length;
+      if ( i() < len ) {
+        for (var j=0; j<len; j++) {
+          markers[j].setAnimation(null);
+        };
         populateInfoWindow(markers[i()], largeInfowindow, self.restList()[i()]);
+        markers[i()].setAnimation(google.maps.Animation.BOUNCE);
       }
     }
 
