@@ -28,6 +28,11 @@ function initMap() {
     $('.toggle-button').click(function() { $('.options-box').toggle(); });
 }
 
+// Handle error for google maps api.
+function googleMapError() {
+  alert("Google Maps Could Not Be Loaded");
+}
+
 // Populate the infowindow when the marker is clicked.
 // Only allow one infowindow which will open at the marker that is clicked,
 // and populate based on that markers position.
