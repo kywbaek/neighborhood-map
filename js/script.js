@@ -188,6 +188,9 @@ var ViewModel = function() {
             markers.push(marker);
             marker.addListener('click', function() {
               populateInfoWindow(this, largeInfowindow, i.venue);
+              for (var j=0; j<markers.length; j++) {
+                markers[j].setAnimation(null);
+                };
               if (this.getAnimation() != google.maps.Animation.BOUNCE) {
                 this.setAnimation(google.maps.Animation.BOUNCE);
                 } else {
@@ -269,9 +272,8 @@ var ViewModel = function() {
 
     // Binding function: Open infowindow for each restaurant and Set marker animation.
     this.openInfowindow = function(i) {
-      var len = markers.length;
-      if ( i() < len ) {
-        for (var j=0; j<len; j++) {
+      if ( i() < markers.length ) {
+        for (var j=0; j<markers.length; j++) {
           markers[j].setAnimation(null);
         };
         populateInfoWindow(markers[i()], largeInfowindow, self.restList()[i()]);
