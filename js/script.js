@@ -278,16 +278,20 @@ var ViewModel = function() {
       }
     }
 
+    // Binding function: For visible binding of filtered items.
+    this.isfiltered = function(i) {
+      if ((self.currentFilter() === "Show All") || (self.currentFilter() === self.restList()[i()].categories[0].shortName)) { return true }
+      else { return false }
+    }
+
     // Binding function: Set the current filter.
     this.setCurrentFilter = function() {
       var filter = $('select').val();
       self.currentFilter(filter);
       for (var i = 0; i < self.restList().length; i++) {
         if (self.restList()[i].categories[0].shortName != filter) {
-          $('li').eq(i).hide();
           markers[i].setMap(null);
         } else {
-          $('li').eq(i).show();
           markers[i].setMap(map);
         }
       }
@@ -296,7 +300,6 @@ var ViewModel = function() {
     // Binding function: Clear the current filter.
     this.clearFilter = function() {
       self.currentFilter("Show All");
-      $('li').show();
       showMarkers(markers);
     }
 
