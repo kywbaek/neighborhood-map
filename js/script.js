@@ -286,10 +286,8 @@ var ViewModel = function() {
 
     // Binding function: Set the current filter.
     this.setCurrentFilter = function() {
-      var filter = $('select').val();
-      self.currentFilter(filter);
       for (var i = 0; i < self.restList().length; i++) {
-        if (self.restList()[i].categories[0].shortName != filter) {
+        if (self.restList()[i].categories[0].shortName != self.currentFilter()) {
           markers[i].setMap(null);
         } else {
           markers[i].setMap(map);
