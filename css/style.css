@@ -53,10 +53,6 @@ li:hover {
     z-index: 1;
 }
 
-#drop-down {
-    display: none;
-}
-
 #restList {
     overflow: scroll;
     max-height: 51vh;

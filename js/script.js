@@ -114,14 +114,6 @@ function deleteMarkers(markers) {
   markers = [];
 }
 
-function showDropdown() {
-  $('#drop-down').show();
-}
-
-function hideDropdown() {
-  $('#drop-down').hide();
-}
-
 // Get the current date for the lastest foursquare data.
 function getFoursquareVersion() {
   var today = new Date();
@@ -205,8 +197,6 @@ var ViewModel = function() {
                 }
               });
 
-          // Show dropdown category list.
-          showDropdown();
           // Add click event listener for each restaurant element.
           $('li').click(function() {
               $('li').removeClass('selected');
@@ -262,7 +252,6 @@ var ViewModel = function() {
 
     // Binding function: Delete the restaurant list and category list.
     this.deleteRestList = function() {
-      hideDropdown();
       deleteMarkers(markers);
       self.restList.removeAll();
       self.catList.splice(1);
@@ -306,6 +295,12 @@ var ViewModel = function() {
     this.toggleOptions = function() {
       if (self.optionsVisible() != true) {self.optionsVisible(true);}
         else {self.optionsVisible(false);}
+    }
+
+    // Binding function: For visible binding to dropdown menu.
+    this.isRestList = function() {
+      if (self.restList().length > 0) { return true }
+        else { return false }
     }
 
     self.getRestList();
