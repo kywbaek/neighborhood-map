@@ -140,6 +140,7 @@ var ViewModel = function() {
     this.catList = ko.observableArray(['Show All']);
     this.currentFilter = ko.observable('Show All');
     this.optionsVisible = ko.observable(true);
+    this.selectedIndex = ko.observable(100);
 
     // Get restaurant list, categories list using foursquare api.
     // Generate html elements for each restaurant and each category.
@@ -198,10 +199,10 @@ var ViewModel = function() {
               });
 
           // Add click event listener for each restaurant element.
-          $('li').click(function() {
-              $('li').removeClass('selected');
-              $(this).addClass('selected');
-          });
+          // $('li').click(function() {
+          //     $('li').removeClass('selected');
+          //     $(this).addClass('selected');
+          // });
           })
         .fail( function( jqxhr, statusText, error) {
           var errText = statusText + ", " + error;
@@ -259,6 +260,7 @@ var ViewModel = function() {
 
     // Binding function: Open infowindow for each restaurant and Set marker animation.
     this.openInfowindow = function(i) {
+      self.selectedIndex(i());
       if ( i() < markers.length ) {
         for (var j=0; j<markers.length; j++) {
           markers[j].setAnimation(null);
@@ -301,6 +303,12 @@ var ViewModel = function() {
     this.isRestList = function() {
       if (self.restList().length > 0) { return true }
         else { return false }
+    }
+
+    // Binding function: For css binding to li tags.
+    this.isSelected = function(i) {
+      if (i()===self.selectedIndex()) {return true}
+        else {return false}
     }
 
     self.getRestList();

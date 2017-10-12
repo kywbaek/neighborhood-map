@@ -34,7 +34,7 @@
                 <hr>
 
                 <ul class="list-unstyled" id="restList" data-bind="foreach: restList">
-                    <li data-bind="text:name, click: $parent.openInfowindow($index), visible: $parent.isfiltered($index)">
+                    <li data-bind="text:name, click: $parent.openInfowindow($index), visible: $parent.isfiltered($index), css: { selected: $parent.isSelected($index) }">
                         <span data-bind="text: name"></span>
                     </li>
                 </ul>
