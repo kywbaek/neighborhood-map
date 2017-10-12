@@ -26,7 +26,7 @@
 
                 <div id="drop-down">
                 <hr>
-                <select data-bind="options: catList"></select>
+                <select data-bind="options: catList, value: currentFilter"></select>
                 <input data-bind="click: setCurrentFilter" id="filter" type="button" value="Filter">
                 <input data-bind="click: clearFilter" id="filter-all" type="button" value="Show All">
                 </div>

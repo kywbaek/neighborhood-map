@@ -295,7 +295,6 @@ var ViewModel = function() {
 
     // Binding function: Clear the current filter.
     this.clearFilter = function() {
-      $('select').val("Show All");
       self.currentFilter("Show All");
       $('li').show();
       showMarkers(markers);
