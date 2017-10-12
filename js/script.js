@@ -147,6 +147,7 @@ var ViewModel = function() {
     this.restList = ko.observableArray([]);
     this.catList = ko.observableArray(['Show All']);
     this.currentFilter = ko.observable('Show All');
+    this.optionsVisible = ko.observable(true);
 
     // Get restaurant list, categories list using foursquare api.
     // Generate html elements for each restaurant and each category.
@@ -303,7 +304,8 @@ var ViewModel = function() {
 
     // Binding function: Toggle options box.
     this.toggleOptions = function() {
-      $('.options-box').toggle();
+      if (self.optionsVisible() != true) {self.optionsVisible(true);}
+        else {self.optionsVisible(false);}
     }
 
     self.getRestList();
