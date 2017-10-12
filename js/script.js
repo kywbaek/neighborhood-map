@@ -224,7 +224,7 @@ var ViewModel = function() {
         // Get the address or place that the user entered.
         // Make sure the address isn't blank.
         var geocoder = new google.maps.Geocoder();
-        var address = $("#go-to-area-text").val();
+        var address = self.currentArea()
         if (address == '') {
               window.alert('You must enter an area, or address.');
             } else {
@@ -255,11 +255,8 @@ var ViewModel = function() {
     // Binding function: Set the current area.
     this.setCurrentArea = function() {
         self.deleteRestList();
-        var address = $("#go-to-area-text").val();
-        if (address != '') {
-          self.currentArea(address);
-          self.goToArea();
-        }
+        self.currentArea($("#go-to-area-text").val());
+        self.goToArea();
     }
 
     // Binding function: Delete the restaurant list and category list.
