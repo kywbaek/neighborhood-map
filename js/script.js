@@ -258,8 +258,8 @@ var ViewModel = function() {
       self.catList.splice(1);
     }
 
-    // Binding function: Open infowindow for each restaurant and Set marker animation.
-    this.openInfowindow = function(i) {
+    // Binding function: Open infowindow for each selected restaurant, set marker animation, and update selectedIndex variable for css binding function, isSelected().
+    this.selectRest = function(i) {
       self.selectedIndex(i());
       if ( i() < markers.length ) {
         for (var j=0; j<markers.length; j++) {
