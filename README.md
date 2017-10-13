@@ -8,7 +8,7 @@ A single page web application featuring a map of the area user provided. The app
 - Use the JavaScript library **Knockout** to develop a web application with responsive display.
 - Use third-pary APIs.
     - **Google Maps** : Add full screen map
-    - **Foursquare** : Get restaurants data
+    - **Foursquare** : Get venues data
 - Use Ajax request to load data APIs asynchronously.
 
 ## Usage :
