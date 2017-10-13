@@ -2,6 +2,7 @@ var map;
 var markers = [];
 var currentCenter = "40.758895,-73.98513100000002";
 var largeInfowindow;
+var zoomAutocomplete;
 
 function initMap() {
     // Create a new map with centered at "Times Sqaure, NY" initially.
@@ -16,7 +17,7 @@ function initMap() {
     });
 
     // Bias the boundaries within the map for the go to area text.
-    var zoomAutocomplete = new google.maps.places.Autocomplete(
+    zoomAutocomplete = new google.maps.places.Autocomplete(
         $('#go-to-area-text')[0]);
     zoomAutocomplete.bindTo('bounds', map);
 
@@ -197,12 +198,6 @@ var ViewModel = function() {
                   self.catList.push(i.venue.categories[0].shortName);
                 }
               });
-
-          // Add click event listener for each restaurant element.
-          // $('li').click(function() {
-          //     $('li').removeClass('selected');
-          //     $(this).addClass('selected');
-          // });
           })
         .fail( function( jqxhr, statusText, error) {
           var errText = statusText + ", " + error;
@@ -247,7 +242,7 @@ var ViewModel = function() {
     // Binding function: Set the current area.
     this.setCurrentArea = function() {
         self.deleteRestList();
-        self.currentArea($("#go-to-area-text").val());
+        self.currentArea(zoomAutocomplete.getPlace().formatted_address);
         self.goToArea();
     }
 
