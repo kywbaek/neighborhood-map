@@ -33,7 +33,7 @@ function googleMapError() {
 // Populate the infowindow when the marker is clicked.
 // Only allow one infowindow which will open at the marker that is clicked,
 // and populate based on that markers position.
-function populateInfoWindow(marker, infowindow, restaurant) {
+function populateInfoWindow(marker, infowindow, venue) {
   // Check to make sure the infowindow is not already opened on this marker.
   // Clear the infowindow content to give the streetview time to load.
   // Make sure the marker property is cleared if the infowindow is closed.
@@ -56,15 +56,15 @@ function populateInfoWindow(marker, infowindow, restaurant) {
           nearStreetViewLocation, marker.position);
 
         // Get the restaurant info from foursquare data.
-        var name = restaurant.name;
-        var hours = (restaurant.hours!=undefined) ?
-                    (restaurant.hours.status!=undefined ? restaurant.hours.status : "") : "";
-        var phone = (restaurant.contact!=undefined) ?
-                    (restaurant.contact.formattedPhone!=undefined ? restaurant.contact.formattedPhone : "") : "";
-        var address = (restaurant.location!=undefined) ?
-                    (restaurant.location.address!=undefined ? restaurant.location.address : "") : "";
-        var rating = (restaurant.rating!=undefined) ? (restaurant.rating + "/10") : "--";
-        var restUrl = (restaurant.url!=undefined) ? (restaurant.url) : "";
+        var name = venue.name;
+        var hours = (venue.hours!=undefined) ?
+                    (venue.hours.status!=undefined ? venue.hours.status : "") : "";
+        var phone = (venue.contact!=undefined) ?
+                    (venue.contact.formattedPhone!=undefined ? venue.contact.formattedPhone : "") : "";
+        var address = (venue.location!=undefined) ?
+                    (venue.location.address!=undefined ? venue.location.address : "") : "";
+        var rating = (venue.rating!=undefined) ? (venue.rating + "/10") : "--";
+        var restUrl = (venue.url!=undefined) ? (venue.url) : "";
         infowindow.setContent('<div><strong>' + name +
                         '</strong></div><div>' + hours +
                         '</div><div>rating: ' + rating +
@@ -137,17 +137,17 @@ var ViewModel = function() {
 
     // Declare observables and observable arrays
     this.currentArea = ko.observable("Times Square, NY");
-    this.restList = ko.observableArray([]);
+    this.venueList = ko.observableArray([]);
     this.catList = ko.observableArray(['Show All']);
     this.currentFilter = ko.observable('Show All');
     this.optionsVisible = ko.observable(true);
     this.selectedIndex = ko.observable(100);
 
-    // Get restaurant list, categories list using foursquare api.
-    // Generate html elements for each restaurant and each category.
-    // Create markers for each restaurant.
-    this.getRestList = function() {
-      self.restList.removeAll();
+    // Get venue list, categories list using foursquare api.
+    // Generate html elements for each venue and each category.
+    // Create markers for each venue.
+    this.getVenueList = function() {
+      self.venueList.removeAll();
       self.catList.splice(1);
       hideMarkers(markers);
       markers = [];
@@ -166,8 +166,8 @@ var ViewModel = function() {
       $.getJSON(FSUrl, function (data) {
           $.each(data.response.groups[0].items , function(num, i) {
 
-            // Append to the restaurant list.
-            self.restList.push(i.venue);
+            // Append to the venue list.
+            self.venueList.push(i.venue);
 
             // Create marker.
             var title = i.venue.name;
@@ -241,40 +241,40 @@ var ViewModel = function() {
 
     // Binding function: Set the current area.
     this.setCurrentArea = function() {
-        self.deleteRestList();
+        self.deleteVenueList();
         self.currentArea(zoomAutocomplete.getPlace().formatted_address);
         self.goToArea();
     }
 
-    // Binding function: Delete the restaurant list and category list.
-    this.deleteRestList = function() {
+    // Binding function: Delete the venue list and category list.
+    this.deleteVenueList = function() {
       deleteMarkers(markers);
-      self.restList.removeAll();
+      self.venueList.removeAll();
       self.catList.splice(1);
     }
 
-    // Binding function: Open infowindow for each selected restaurant, set marker animation, and update selectedIndex variable for css binding function, isSelected().
-    this.selectRest = function(i) {
+    // Binding function: Open infowindow for each selected venue, set marker animation, and update selectedIndex variable for css binding function, isSelected().
+    this.selectVenue = function(i) {
       self.selectedIndex(i());
       if ( i() < markers.length ) {
         for (var j=0; j<markers.length; j++) {
           markers[j].setAnimation(null);
         };
-        populateInfoWindow(markers[i()], largeInfowindow, self.restList()[i()]);
+        populateInfoWindow(markers[i()], largeInfowindow, self.venueList()[i()]);
         markers[i()].setAnimation(google.maps.Animation.BOUNCE);
       }
     }
 
     // Binding function: For visible binding of filtered items.
     this.isfiltered = function(i) {
-      if ((self.currentFilter() === "Show All") || (self.currentFilter() === self.restList()[i()].categories[0].shortName)) { return true }
+      if ((self.currentFilter() === "Show All") || (self.currentFilter() === self.venueList()[i()].categories[0].shortName)) { return true }
       else { return false }
     }
 
     // Binding function: Set the current filter.
     this.setCurrentFilter = function() {
-      for (var i = 0; i < self.restList().length; i++) {
-        if (self.restList()[i].categories[0].shortName != self.currentFilter()) {
+      for (var i = 0; i < self.venueList().length; i++) {
+        if (self.venueList()[i].categories[0].shortName != self.currentFilter()) {
           markers[i].setMap(null);
         } else {
           markers[i].setMap(map);
@@ -295,8 +295,8 @@ var ViewModel = function() {
     }
 
     // Binding function: For visible binding to dropdown menu.
-    this.isRestList = function() {
-      if (self.restList().length > 0) { return true }
+    this.isVenueList = function() {
+      if (self.venueList().length > 0) { return true }
         else { return false }
     }
 
@@ -306,7 +306,7 @@ var ViewModel = function() {
         else {return false}
     }
 
-    self.getRestList();
+    self.getVenueList();
 
 }
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Recommended Restaurants</title>
+    <title>Recommended Venus</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -11,7 +11,7 @@
     <div class="container-fluid">
         <div class="row">
             <div data-bind="visible: optionsVisible" class="col-xs-4 col-md-4 options-box">
-                <h3>Recommended Restaurants</h3>
+                <h3>Recommended Venues</h3>
                 <h4 data-bind="text: currentArea"></h4>
                 <div>
                   <input data-bind="textInput: currentArea" id="go-to-area-text" type="text" placeholder="Enter your area">
@@ -20,11 +20,11 @@
                 <hr>
 
                 <div>
-                  <input data-bind="click: getRestList" id="find-restaurants" type="button" value="Find Restaurants">
-                  <input data-bind="click: deleteRestList" id="clear-searches" type="button" value="Clear Searches">
+                  <input data-bind="click: getVenueList" id="find-venues" type="button" value="Find Venues">
+                  <input data-bind="click: deleteVenueList" id="clear-searches" type="button" value="Clear Searches">
                 </div>
 
-                <div data-bind="visible: isRestList()" id="drop-down">
+                <div data-bind="visible: isVenueList()" id="drop-down">
                 <hr>
                 <select data-bind="options: catList, value: currentFilter"></select>
                 <input data-bind="click: setCurrentFilter" id="filter" type="button" value="Filter">
@@ -33,8 +33,8 @@
 
                 <hr>
 
-                <ul class="list-unstyled" id="restList" data-bind="foreach: restList">
-                    <li data-bind="text:name, click: $parent.selectRest($index), visible: $parent.isfiltered($index), css: { selected: $parent.isSelected($index) }">
+                <ul class="list-unstyled" id="venueList" data-bind="foreach: venueList">
+                    <li data-bind="text:name, click: $parent.selectVenue($index), visible: $parent.isfiltered($index), css: { selected: $parent.isSelected($index) }">
                         <span data-bind="text: name"></span>
                     </li>
                 </ul>

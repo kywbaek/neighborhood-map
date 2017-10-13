@@ -21,7 +21,7 @@ li:hover {
     background-color: #b8dffb;
 }
 
-#find-restaurants, #clear-searches {
+#find-venues, #clear-searches {
     width: 46%;
 }
 
@@ -53,7 +53,7 @@ li:hover {
     z-index: 1;
 }
 
-#restList {
+#venueList {
     overflow: scroll;
     max-height: 51vh;
 }
