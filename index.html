@@ -14,21 +14,26 @@
                 <h3>Recommended Venues</h3>
                 <h4 data-bind="text: currentArea"></h4>
                 <section>
-                  <input data-bind="textInput: currentArea" id="go-to-area-text" type="text" placeholder="Enter your area">
-                  <input data-bind="click: setCurrentArea" id="go-to-area" type="button" value="Go">
+                    <input data-bind="textInput: currentArea" id="go-to-area-text" type="text" placeholder="Enter your area">
+                    <input data-bind="click: setCurrentArea" id="go-to-area" type="button" value="Go">
                 </section>
                 <hr>
 
                 <section>
-                  <input data-bind="click: getVenueList" id="find-venues" type="button" value="Find Venues">
-                  <input data-bind="click: deleteVenueList" id="clear-searches" type="button" value="Clear Searches">
+                    <span>Looking for: </span>
+                    <select data-bind="options: sectionList, value: currentSection"></select>
+                </section>
+
+                <section>
+                    <input data-bind="click: getVenueList" id="find-venues" type="button" value="Find Venues">
+                    <input data-bind="click: deleteVenueList" id="clear-searches" type="button" value="Clear Searches">
                 </section>
 
                 <section data-bind="visible: isVenueList()" id="drop-down">
-                <hr>
-                <select data-bind="options: catList, value: currentFilter"></select>
-                <input data-bind="click: setCurrentFilter" id="filter" type="button" value="Filter">
-                <input data-bind="click: clearFilter" id="filter-all" type="button" value="Show All">
+                    <hr>
+                    <select data-bind="options: catList, value: currentFilter"></select>
+                    <input data-bind="click: setCurrentFilter" id="filter" type="button" value="Filter">
+                    <input data-bind="click: clearFilter" id="filter-all" type="button" value="Show All">
                 </section>
 
                 <hr>

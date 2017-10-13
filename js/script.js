@@ -142,6 +142,9 @@ var ViewModel = function() {
     this.currentFilter = ko.observable('Show All');
     this.optionsVisible = ko.observable(true);
     this.selectedIndex = ko.observable(100);
+    this.sectionList = ko.observableArray(
+      ['food','drinks','coffee','shops','arts','outdoors','sights','trending']);
+    this.currentSection = ko.observable('food');
 
     // Get venue list, categories list using foursquare api.
     // Generate html elements for each venue and each category.
@@ -157,7 +160,7 @@ var ViewModel = function() {
         'll': currentCenter,
         'client_id': FS.client_id,
         'client_secret': FS.client_secret,
-        'section': 'food',
+        'section': self.currentSection(),
         'radius': '1500',
         'v': v
       });
