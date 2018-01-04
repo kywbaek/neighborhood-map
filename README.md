@@ -21,4 +21,4 @@ A single page web application featuring a map of the area user provided. The app
     - Click **Clear Searches** button to clear previous search result
 
 ## Usage (live site) :
-- [Recommended Vanues](http://www.youngwookbaek.com/venues-nearby/index.html)
+- [Recommended Vanues](http://venues-nearby.youngwookbaek.com)
