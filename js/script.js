@@ -57,14 +57,14 @@ function populateInfoWindow(marker, infowindow, venue) {
 
         // Get the restaurant info from foursquare data.
         var name = venue.name;
-        var hours = (venue.hours!=undefined) ?
-                    (venue.hours.status!=undefined ? venue.hours.status : "") : "";
-        var phone = (venue.contact!=undefined) ?
-                    (venue.contact.formattedPhone!=undefined ? venue.contact.formattedPhone : "") : "";
-        var address = (venue.location!=undefined) ?
-                    (venue.location.address!=undefined ? venue.location.address : "") : "";
-        var rating = (venue.rating!=undefined) ? (venue.rating + "/10") : "--";
-        var restUrl = (venue.url!=undefined) ? (venue.url) : "";
+        var hours = venue.hours ?
+                    (venue.hours.status ? venue.hours.status : "") : "";
+        var phone = venue.contact ?
+                    (venue.contact.formattedPhone ? venue.contact.formattedPhone : "") : "";
+        var address = venue.location ?
+                    (venue.location.address ? venue.location.address : "") : "";
+        var rating = venue.rating ? (venue.rating + "/10") : "--";
+        var restUrl = venue.url ? venue.url : "";
         infowindow.setContent('<div><strong>' + name +
                         '</strong></div><div>' + hours +
                         '</div><div>rating: ' + rating +
@@ -182,10 +182,22 @@ var ViewModel = function() {
               id: i,
               map: map
             });
+            
+	    // Get more detailed info for the venue
+            var curVenue;
+	    var FSUrlVenue = "https://api.foursquare.com/v2/venues/"+i.venue.id+"?";
+	    FSUrlVenue += $.param({
+	      'client_id': FS.client_id,
+	      'client_secret': FS.client_secret,
+	      'v': v
+	    });
+	    $.getJSON(FSUrlVenue, function(fsVenueResponse) {
+	      curVenue = fsVenueResponse.response.venue
+	    });
 
             markers.push(marker);
             marker.addListener('click', function() {
-              populateInfoWindow(this, largeInfowindow, i.venue);
+              populateInfoWindow(this, largeInfowindow, curVenue);
               for (let j=0; j<markers.length; j++) {
                 markers[j].setAnimation(null);
                 };
