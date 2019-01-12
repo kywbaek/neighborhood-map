@@ -1,8 +1,8 @@
-let map;
-let markers = [];
-let currentCenter = "40.758895,-73.98513100000002";
-let largeInfowindow;
-let zoomAutocomplete;
+var map;
+var markers = [];
+var currentCenter = "40.758895,-73.98513100000002";
+var largeInfowindow;
+var zoomAutocomplete;
 
 function initMap() {
     // Create a new map with centered at "Times Sqaure, NY" initially.
@@ -43,28 +43,28 @@ function populateInfoWindow(marker, infowindow, venue) {
     infowindow.addListener('closeclick', function() {
       infowindow.marker = null;
     });
-    let streetViewService = new google.maps.StreetViewService();
-    let radius = 50;
+    var streetViewService = new google.maps.StreetViewService();
+    var radius = 50;
 
     // In case the status is OK, which means the pano was found, compute the
     // position of the streetview image, then calculate the heading, then get a
     // panorama from that and set the options.
     function getStreetView(data, status) {
       if (status == google.maps.StreetViewStatus.OK) {
-        let nearStreetViewLocation = data.location.latLng;
-        let heading = google.maps.geometry.spherical.computeHeading(
+        var nearStreetViewLocation = data.location.latLng;
+        var heading = google.maps.geometry.spherical.computeHeading(
           nearStreetViewLocation, marker.position);
 
         // Get the restaurant info from foursquare data.
-        let name = venue.name;
-        let hours = (venue.hours!=undefined) ?
+        var name = venue.name;
+        var hours = (venue.hours!=undefined) ?
                     (venue.hours.status!=undefined ? venue.hours.status : "") : "";
-        let phone = (venue.contact!=undefined) ?
+        var phone = (venue.contact!=undefined) ?
                     (venue.contact.formattedPhone!=undefined ? venue.contact.formattedPhone : "") : "";
-        let address = (venue.location!=undefined) ?
+        var address = (venue.location!=undefined) ?
                     (venue.location.address!=undefined ? venue.location.address : "") : "";
-        let rating = (venue.rating!=undefined) ? (venue.rating + "/10") : "--";
-        let restUrl = (venue.url!=undefined) ? (venue.url) : "";
+        var rating = (venue.rating!=undefined) ? (venue.rating + "/10") : "--";
+        var restUrl = (venue.url!=undefined) ? (venue.url) : "";
         infowindow.setContent('<div><strong>' + name +
                         '</strong></div><div>' + hours +
                         '</div><div>rating: ' + rating +
@@ -73,14 +73,14 @@ function populateInfoWindow(marker, infowindow, venue) {
                         '</div><a href="' + restUrl +
                         '" target="_blank">website</a><div id="pano"></div>' +
                         '<img src="img/Powered-by-Foursquare.png" alt="Powered by Foursquare">');
-        let panoramaOptions = {
+        var panoramaOptions = {
           position: nearStreetViewLocation,
           pov: {
             heading: heading,
             pitch: 10
           }
         };
-        let panorama = new google.maps.StreetViewPanorama(
+        var panorama = new google.maps.StreetViewPanorama(
           $("#pano")[0], panoramaOptions);
       } else {
         infowindow.setContent('<div>' + marker.title + '</div>' +
@@ -117,10 +117,10 @@ function deleteMarkers(markers) {
 
 // Get the current date for the lastest foursquare data.
 function getFoursquareVersion() {
-  let today = new Date();
-  let dd = today.getDate();
-  let mm = today.getMonth()+1;
-  let yyyy = today.getFullYear().toString();
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth()+1;
+  var yyyy = today.getFullYear().toString();
   if ( dd < 10 ) {
     dd = '0' + dd;
   }
@@ -131,9 +131,9 @@ function getFoursquareVersion() {
 }
 
 // ViewModel for Knockout.
-let ViewModel = function() {
+var ViewModel = function() {
 
-    let self = this;
+    var self = this;
 
     // Declare observables and observable arrays
     this.currentArea = ko.observable("Times Square, NY");
@@ -154,8 +154,8 @@ let ViewModel = function() {
       self.catList.splice(1);
       hideMarkers(markers);
       markers = [];
-      let v = getFoursquareVersion();
-      let FSUrlExp = "https://api.foursquare.com/v2/venues/explore?";
+      var v = getFoursquareVersion();
+      var FSUrlExp = "https://api.foursquare.com/v2/venues/explore?";
       FSUrlExp += $.param({
         'll': currentCenter,
         'client_id': FS.client_id,
@@ -173,9 +173,9 @@ let ViewModel = function() {
             self.venueList.push(i.venue);
 
             // Create marker.
-            let title = i.venue.name;
-            let position = {lat: i.venue.location.lat, lng: i.venue.location.lng};
-            let marker = new google.maps.Marker({
+            var title = i.venue.name;
+            var position = {lat: i.venue.location.lat, lng: i.venue.location.lng};
+            var marker = new google.maps.Marker({
               position: position,
               title: title,
               animation: google.maps.Animation.DROP,
@@ -185,7 +185,7 @@ let ViewModel = function() {
 
             markers.push(marker);
             marker.addListener('click', function() {
-              populateInfoWindow(this, largeInfowindow, i.venue.test);
+              populateInfoWindow(this, largeInfowindow, i.venue);
               for (let j=0; j<markers.length; j++) {
                 markers[j].setAnimation(null);
                 };
@@ -203,7 +203,7 @@ let ViewModel = function() {
               });
           })
         .fail( function( jqxhr, statusText, error) {
-          let errText = statusText + ", " + error;
+          var errText = statusText + ", " + error;
           alert("Foursquare Data Could Not Be Loaded: " + errText);
         });
      }
@@ -213,8 +213,8 @@ let ViewModel = function() {
         // Initialize the geocoder.
         // Get the address or place that the user entered.
         // Make sure the address isn't blank.
-        let geocoder = new google.maps.Geocoder();
-        let address = self.currentArea()
+        var geocoder = new google.maps.Geocoder();
+        var address = self.currentArea()
         if (address == '') {
               window.alert('You must enter an area, or address.');
             } else {
@@ -225,7 +225,7 @@ let ViewModel = function() {
                 { address: address },
                 function(results, status) {
                   if (status == google.maps.GeocoderStatus.OK) {
-                    let offsetCenter = {lat: results[0].geometry.location.lat(),
+                    var offsetCenter = {lat: results[0].geometry.location.lat(),
                                         lng: results[0].geometry.location.lng()-0.003};
                     map.setCenter(offsetCenter);
                     map.setZoom(15);
