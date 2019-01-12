@@ -155,8 +155,8 @@ var ViewModel = function() {
       hideMarkers(markers);
       markers = [];
       var v = getFoursquareVersion();
-      var FSUrl = "https://api.foursquare.com/v2/venues/explore?";
-      FSUrl += $.param({
+      var FSUrlExp = "https://api.foursquare.com/v2/venues/explore?";
+      FSUrlExp += $.param({
         'll': currentCenter,
         'client_id': FS.client_id,
         'client_secret': FS.client_secret,
@@ -166,7 +166,7 @@ var ViewModel = function() {
       });
 
       // Ajax request.
-      $.getJSON(FSUrl, function (data) {
+      $.getJSON(FSUrlExp, function (data) {
           $.each(data.response.groups[0].items , function(num, i) {
 
             // Append to the venue list.
@@ -185,7 +185,7 @@ var ViewModel = function() {
 
             markers.push(marker);
             marker.addListener('click', function() {
-              populateInfoWindow(this, largeInfowindow, i.venue);
+              populateInfoWindow(this, largeInfowindow, i.venue.test);
               for (var j=0; j<markers.length; j++) {
                 markers[j].setAnimation(null);
                 };
