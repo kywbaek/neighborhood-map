@@ -182,8 +182,8 @@ var ViewModel = function() {
               id: i,
               map: map
             });
-            
-	    // Get more detailed info for the venue
+
+	    // Get more detailed info for the venue from foursquare venue api
             var curVenue;
 	    var FSUrlVenue = "https://api.foursquare.com/v2/venues/"+i.venue.id+"?";
 	    FSUrlVenue += $.param({
